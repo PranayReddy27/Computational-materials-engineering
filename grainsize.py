@@ -1,6 +1,3 @@
-
-
-
 """
 This code performs grain size distribution analysis and dumps results into a csv file.
 
@@ -33,8 +30,6 @@ plt.hist(img.flat, bins=100, range=(0,255))
 #Change the grey image to binary by thresholding. 
 ret, thresh = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 
-# #print(ret)  #Gives 157 on grains2.jpg. OTSU determined this to be the best threshold. 
-
 # #View the thresh image. Some boundaries are ambiguous / faint.
 # #Some pixles in the middle. 
 # #Need to perform morphological operations to enhance.
@@ -44,13 +39,7 @@ ret, thresh = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 kernel = np.ones((3,3),np.uint8) 
 eroded = cv2.erode(thresh,kernel,iterations = 1)
 dilated = cv2.dilate(eroded,kernel,iterations = 1)
-# cv2.imshow('Thresholded image', thresh)
-# cv2.imshow('Dilated image', eroded)
-# cv2.waitKey(0)
 
-# cv2.imshow('Thresholded image', thresh)
-# cv2.imshow('Dilated image', eroded)
-# cv2.waitKey(0)
 
 # # Now, we need to apply threshold, meaning convert uint8 image to boolean.
 mask = eroded == 255  #Sets TRUE for all 255 valued pixels and FALSE for 0
@@ -58,9 +47,6 @@ mask = eroded == 255  #Sets TRUE for all 255 valued pixels and FALSE for 0
 
 # #from skimage.segmentation import clear_border
 # #mask = clear_border(mask)   #Removes edge touching grains. 
-
-#io.imshow(mask)  #cv2.imshow() #not working on boolean arrays so using io
-#io.imshow(mask[250:280, 250:280])   #Zoom in to see pixelated binary image
 
 # #Step 4: Label grains in the masked image
 
